@@ -4,7 +4,6 @@ Package fsUtils contains a set of useful utilities I have developed for working 
 package fsUtils
 
 import (
-	"fmt"
 	"io/ioutil"
 	"time"
 )
@@ -50,7 +49,6 @@ func (m *Monitor) Directory(directoryName string, onAdd func(string), onDelete f
 
 	for {
 		time.Sleep(1000 * time.Millisecond)
-		fmt.Println("Checking Monitor...")
 		change, err := m.getDiff(directoryName)
 		if err != nil {
 			return err
