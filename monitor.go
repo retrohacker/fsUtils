@@ -41,10 +41,20 @@ type change struct {
 Directory causes a Monitor to begin monitoring a directory, calling the onAdd and onDelete callback functions when a change is detected.
 */
 func (m *Monitor) Directory(directoryName string, onAdd func(string), onDelete func(string)) error {
+	//if onAdd or onDelete are nil assign dummy functions
+	if onAdd == nil {
+		onAdd = func(s string) {}
+	}
+
+	if onDelete == nil {
+		onDelete = func(s string) {}
+	}
+
 	err := m.buildContents(directoryName)
 	if err != nil {
 		return err
 	}
+
 	handlechanges(m.contentArray(),onAdd,nil)
 
 	for {
